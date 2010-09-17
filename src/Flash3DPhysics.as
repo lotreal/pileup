@@ -88,7 +88,7 @@ package
             view = new BasicView(760,600, true, true, CameraType.TARGET);
 	    view.camera.z = -100;
 	    view.buttonMode = true;
-	    view.renderer = new QuadrantRenderEngine(QuadrantRenderEngine.CORRECT_Z_FILTER);
+	    //view.renderer = new QuadrantRenderEngine(QuadrantRenderEngine.CORRECT_Z_FILTER);
 
 	    // var rubik:PileUp = new PileUp();
 	    // view.scene.addChild(rubik);
@@ -151,37 +151,13 @@ package
 	    materiaList.addMaterial(shadeMateria,"all");
 	    boxBody=new Vector.<RigidBody>();
 
-	    for(var level:int = 0; level<7; level++)
+	    for (i = 0; i < 6; i++)
 	    {
-	        for(var j:int = 0; j<3; j++)
-	        {
-		    for(var k:int = 0; k<3; k++)
-		    {
-                // var cube:Cube = new Cube(materiaList, 50, 150, 30);
-                var cube:MiniCube = new MiniCube(level, j, k);
-		view.scene.addChild(cube);
-		var jbox:JBox = new JBox(new Pv3dMesh(cube), 50,150,30);
-		physics.addBody(jbox);
-		boxBody[level] = jbox;
-		physics.getMesh(boxBody[level]).addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, handleMousePress);
-		//boxBody[level].moveTo(new Vector3D(0, 10 + (40 * level + 40), 0));
-		vplObjects.addDisplayObject3D(physics.getMesh(boxBody[level]));
-
-		    }
-	        }
+		boxBody[i] = physics.createCube(materiaList, 50, 150, 30);
+		physics.getMesh(boxBody[i]).addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, handleMousePress);
+		boxBody[i].moveTo(new Vector3D(0, 10 + (40 * i + 40), 0));
+		vplObjects.addDisplayObject3D(physics.getMesh(boxBody[i]));
 	    }
-
-	    // for (i = 0; i < 6; i++)
-	    // {
-            //     var cube:Cube = new Cube(materiaList, 50, 150, 30);
-	    //     view.scene.addChild(cube);
-	    //     var jbox:JBox = new JBox(new Pv3dMesh(cube), 50,150,30);
-	    //     physics.addBody(jbox);
-	    //     boxBody[i] = jbox;
-	    //     physics.getMesh(boxBody[i]).addEventListener(InteractiveScene3DEvent.OBJECT_PRESS, handleMousePress);
-	    //     boxBody[i].moveTo(new Vector3D(0, 10 + (40 * i + 40), 0));
-	    //     vplObjects.addDisplayObject3D(physics.getMesh(boxBody[i]));
-	    // }
 
 	    view.camera.y = mylight.y;
 	    view.camera.z = mylight.z;
@@ -311,14 +287,6 @@ package
 		    boxBody[i].moveTo(new Vector3D(0, 1000 + (60 * i + 60), 0));
 		}
 	    }
-	    
-	    // for (i = 0; i < capsuleBody.length;i++ )
-	    // {
-	    // 	if (capsuleBody[i].currentState.position.y < -200)
-	    // 	{
-	    // 		capsuleBody[i].moveTo(new Vector3D(0, 1000 + (60 * i + 60), 0));
-	    // 	}
-	    // }
 	}
 	
 	private function testFreezeObject():void {
@@ -378,25 +346,25 @@ package
 	    if(keyLeft)
 	    {
                 c_yam += 1;
-                view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
+                // view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
 		ballBody[0].addWorldForce(new Vector3D(-60,0,0),ballBody[0].currentState.position);
 	    }
 	    if(keyRight)
 	    {
                 c_yam -= 1;
-                view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
+                // view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
 		ballBody[0].addWorldForce(new Vector3D(60,0,0),ballBody[0].currentState.position);
 	    }
 	    if(keyForward)
 	    {
                 c_pitch += 1;
-                view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
+                // view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
 		ballBody[0].addWorldForce(new Vector3D(0,0,60),ballBody[0].currentState.position);
 	    }
 	    if(keyReverse)
 	    {
                 c_pitch -= 1;
-                view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
+                // view.cameraAsCamera3D.orbit(c_pitch, c_yam);			
 		ballBody[0].addWorldForce(new Vector3D(0,0,-60),ballBody[0].currentState.position);
 	    }
 	    if(keyUp)
@@ -462,27 +430,27 @@ package
 	        
 	        // if(Point.distance(mdp, dragPoint) > 10)
 	        // {
-		//     var n:Number3D = MyUtils.transformNumber(new Number3D(mdp.x - dragPoint.x, dragPoint.y - mdp.y, 0), Matrix3D.inverse(rubik.transform));
-		//     n = Number3D.cross(n, rubik.selSide);
+		    //     var n:Number3D = MyUtils.transformNumber(new Number3D(mdp.x - dragPoint.x, dragPoint.y - mdp.y, 0), Matrix3D.inverse(rubik.transform));
+		    //     n = Number3D.cross(n, rubik.selSide);
 		    
-		//     var axis:String = 'x';
-		//     var largest:Number = Math.abs(n.x);
+		    //     var axis:String = 'x';
+		    //     var largest:Number = Math.abs(n.x);
 		    
-		//     if(Math.abs(n.y) > largest)
-		//     {
-		//         largest = Math.abs(n.y);
-		//         axis = 'y';
-		//     }
-		//     if(Math.abs(n.z) > largest)
-		//     {
-		//         largest = Math.abs(n.z);
-		//         axis = 'z';
-		//     }
+		    //     if(Math.abs(n.y) > largest)
+		    //     {
+		        //         largest = Math.abs(n.y);
+		        //         axis = 'y';
+		        //     }
+		    //     if(Math.abs(n.z) > largest)
+		    //     {
+		        //         largest = Math.abs(n.z);
+		        //         axis = 'z';
+		        //     }
 		    
-		//     rubik.move(axis, Math.round(n[axis]/largest));
+		    //     rubik.move(axis, Math.round(n[axis]/largest));
 		    
-		//     endDrag();
-	        // }
+		    //     endDrag();
+	            // }
 	    }
         }
         
